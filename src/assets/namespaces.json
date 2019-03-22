@@ -1,0 +1,95 @@
+{
+    "kind": "NamespaceList",
+    "apiVersion": "v1",
+    "metadata": {
+      "selfLink": "/api/v1/namespaces",
+      "resourceVersion": "312359"
+    },
+    "items": [
+      {
+        "metadata": {
+          "name": "default",
+          "selfLink": "/api/v1/namespaces/default",
+          "uid": "2540058b-3d60-11e9-a41f-00155da00136",
+          "resourceVersion": "4",
+          "creationTimestamp": "2019-03-03T02:57:56Z"
+        },
+        "spec": {
+          "finalizers": [
+            "kubernetes"
+          ]
+        },
+        "status": {
+          "phase": "Active"
+        }
+      },
+      {
+        "metadata": {
+          "name": "docker",
+          "selfLink": "/api/v1/namespaces/docker",
+          "uid": "4f3b9431-3d60-11e9-a41f-00155da00136",
+          "resourceVersion": "404",
+          "creationTimestamp": "2019-03-03T02:59:06Z"
+        },
+        "spec": {
+          "finalizers": [
+            "kubernetes"
+          ]
+        },
+        "status": {
+          "phase": "Active"
+        }
+      },
+      {
+        "metadata": {
+          "name": "kube-public",
+          "selfLink": "/api/v1/namespaces/kube-public",
+          "uid": "27b36c40-3d60-11e9-a41f-00155da00136",
+          "resourceVersion": "17",
+          "creationTimestamp": "2019-03-03T02:58:00Z"
+        },
+        "spec": {
+          "finalizers": [
+            "kubernetes"
+          ]
+        },
+        "status": {
+          "phase": "Active"
+        }
+      },
+      {
+        "metadata": {
+          "name": "kube-public39",
+          "selfLink": "/api/v1/namespaces/kube-public",
+          "uid": "27b36c40-3d60-11e9-a41f-00155da00136",
+          "resourceVersion": "17",
+          "creationTimestamp": "2019-03-03T02:58:00Z"
+        },
+        "spec": {
+          "finalizers": [
+            "kubernetes"
+          ]
+        },
+        "status": {
+          "phase": "Active"
+        }
+      },
+      {
+        "metadata": {
+          "name": "kube-system",
+          "selfLink": "/api/v1/namespaces/kube-system",
+          "uid": "25b9375b-3d60-11e9-a41f-00155da00136",
+          "resourceVersion": "12",
+          "creationTimestamp": "2019-03-03T02:57:57Z"
+        },
+        "spec": {
+          "finalizers": [
+            "kubernetes"
+          ]
+        },
+        "status": {
+          "phase": "Active"
+        }
+      }
+    ]
+  }
