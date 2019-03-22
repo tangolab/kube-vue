@@ -49,8 +49,7 @@ export default {
     plainPodName(pod) {
       if (pod.metadata.labels) {
         var name = pod.metadata.labels.app;
-        if (name) {
-        } else {
+        if (!name){
           name = pod.metadata.name;
         }
       } else {
@@ -148,8 +147,7 @@ export default {
 
 <style scoped>
 .master .right,.proxy .right,.header .right{
-  text-align: right;
-  width: 30%;
+  text-align:center;
 }
 .proxy{
   background-color: #fb67d4;
@@ -169,8 +167,7 @@ export default {
   overflow: hidden;
 }
 .master .left,.proxy .left,.header .left{
-  float:left;
-  width: 65%;
+  overflow: hidden;
 }
 .pod{
   display: block;
@@ -201,7 +198,7 @@ div.ns > div {
   float: left;
   width: 92%;
   background-color: #5d9aff;
-  padding: 10px 2px 10px 5px;
+  padding: 2px 2px 2px 5px;
   font-size: 15px;
   border-radius: 12px;
   font-family: "arial";
@@ -215,7 +212,7 @@ div.ns > div {
 .node {
   border: 1px #555 solid;
   float: left;
-  width: 5%;
+  width: 10%;
   margin-left: 15px;
   background: #222;
   min-height: 20px;
