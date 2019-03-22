@@ -3,7 +3,7 @@
     <h1>Namespaces</h1>
     <div class="about">
       <transition-group name="fade" tag="div">
-        <div class="pod-border card" v-for="(post, id) in posts.items" :key="`${id}`">
+        <div class="pod-border card" v-for="(post, id) in myNamespace()" :key="`${id}`">
           <div>
             <div class="node-name">
               <router-link :to="{ path: '/pods/' + post.metadata.name}">{{ post.metadata.name }}</router-link>
@@ -30,6 +30,9 @@
       }
     },
     methods: {
+      myNamespace(){
+        return this.posts.items.filter(m => m.metadata.name.toUpperCase().startsWith("MV"))
+      },
       refresh: function(url) {
         if (process.env.NODE_ENV === "development") {
           this.posts = timeline
@@ -57,7 +60,7 @@
       this.refresh(url)
       setInterval(function() {
         self.refresh(url)
-      }, 1000);
+      }, 5000);
     }
   }
 </script>
@@ -125,9 +128,5 @@
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
     transition: 0.3s;
   }
-  
-  .card:hover {
-    box-shadow: 0 8px 16px 0 rgba(0, 0, 0, 0.2);
-    background-color: aliceblue;
-  }
+
 </style>

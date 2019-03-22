@@ -2,25 +2,19 @@
   <div>
     <h1>Nodes</h1>
     <div class="about">
-      <div v-for="post in posts.items" :key="post.metadata.uid">
+      <div class="node" v-for="node in nodes.items" :key="node.metadata.uid">
 
         <div class="node-name">
-          {{ post.metadata.name }}
+          {{ node.metadata.name }}
         </div>  
-        <div v-for="(addr, index) in post.status.addresses" :key="`${index}`">
-          <span class="caption">{{addr.type}}</span> <span class="data">{{addr.address}}</span>
-        </div>
-        <div><span class="caption">CPU</span> <span class="data">{{post.status.capacity.cpu}} ({{post.status.allocatable.cpu}})</span></div>
-        <div><span class="caption">Memory</span> <span class="data">{{post.status.capacity.memory}} ({{post.status.allocatable.memory}})</span></div>
-        <div><span class="caption">Storage</span> <span class="data">{{post.status.capacity['ephemeral-storage']}}  ({{post.status.allocatable['ephemeral-storage']}})</span></div>
-        <div><span class="caption">Pods</span> <span class="data">{{post.status.capacity.pods}}</span></div>
+        <div><span class="caption">CPU</span> <span class="data">{{node.status.capacity.cpu}} ({{node.status.allocatable.cpu}})</span></div>
+        <div><span class="caption">Memory</span> <span class="data">{{node.status.capacity.memory}} ({{node.status.allocatable.memory}})</span></div>
+        <div><span class="caption">Storage</span> <span class="data">{{node.status.capacity['ephemeral-storage']}}  ({{node.status.allocatable['ephemeral-storage']}})</span></div>
+        <div><span class="caption">Pods</span> <span class="data">{{node.status.capacity.pods}}</span></div>
+        <div><span class="caption">Role</span> <span class="data">{{role(node)}}</span></div>
         <div class="header">Conditions</div>
-        <div v-for="(condition, index) in post.status.conditions" :key="`${index}-A`">
+        <div v-for="(condition, index) in node.status.conditions" :key="`${index}-A`">
           <span class="caption">{{condition.type}}</span> <span class="data">{{condition.status}} </span> 
-        </div>
-        <div class="header">Images in Node Registry </div>
-        <div v-for="(image, index) in post.status.images" :key="`${index}-B`">
-          <span class="caption image-size">{{image.sizeBytes | prettyBytes}}</span> <span class="data">{{image.names[1]}} </span>
         </div>
       </div>
     </div>
@@ -34,15 +28,21 @@ import timeline from '../assets/nodes.json'
 export default {
   data() {
     return {
-      posts: [],
+      nodes: [],
       errors: []
     }
   },
-
-  // Fetches posts when the component is created.
+  methods: {
+      role(node){
+        var isMaster = node.metadata.labels["role"]==="master"
+        var isProxy = node.metadata.labels["proxy"]==="true"
+        return isMaster?"Master":isProxy?"Proxy":"Worker" 
+      }
+  },
+  // Fetches nodes when the component is created.
   created() {
     if(process.env.NODE_ENV==="development"){
-      this.posts = timeline 
+      this.nodes = timeline 
     }else{
       axios.get(`http://localhost:8001/api/v1/nodes`,
       {
@@ -52,7 +52,7 @@ export default {
       })
       .then(response => {
         // JSON responses are automatically parsed.
-        this.posts = response.data
+        this.nodes = response.data
       })
       .catch(e => {
         this.errors.push(e)
@@ -63,8 +63,8 @@ export default {
     // async / await version (created() becomes async created())
     //
     // try {
-    //   const response = await axios.get(`http://jsonplaceholder.typicode.com/posts`)
-    //   this.posts = response.data
+    //   const response = await axios.get(`http://jsonplaceholder.typicode.com/nodes`)
+    //   this.nodes = response.data
     // } catch (e) {
     //   this.errors.push(e)
     // }
@@ -73,6 +73,12 @@ export default {
 </script>
 
 <style scoped>
+  .node{
+    float:left;
+    width:300px;
+    border: 1px lightgrey solid;
+    margin: 3px;
+  }
   div.about div div{
     text-align: left;
   }
