@@ -129,14 +129,14 @@ export default {
   },
   // Fetches posts when the component is created.
   created() {
-    var nodesUrl = "http://localhost:8001/api/v1/nodes";
+    var nodesUrl = "/api/v1/nodes";
     var self = this;
     this.refreshNodes(nodesUrl);
     setInterval(function() {
       self.refreshNodes(nodesUrl);
     }, 5000);
 
-    var podsUrl = "http://localhost:8001/api/v1/pods";
+    var podsUrl = "/api/v1/pods";
     this.refreshPods(podsUrl);
     setInterval(function() {
       self.refreshPods(podsUrl);
@@ -197,7 +197,7 @@ div.ns > div {
   margin: 2%;
   float: left;
   width: 92%;
-  background-color: #5d9aff;
+  background-color: #0a44a1;
   padding: 2px 2px 2px 5px;
   font-size: 15px;
   border-radius: 12px;

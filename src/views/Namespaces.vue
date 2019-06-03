@@ -31,7 +31,7 @@
     },
     methods: {
       myNamespace(){
-        return this.posts.items.filter(m => m.metadata.name.toUpperCase().startsWith("MV"))
+        return this.posts.items//.filter(m => m.metadata.name.toUpperCase().startsWith("MV"))
       },
       refresh: function(url) {
         if (process.env.NODE_ENV === "development") {

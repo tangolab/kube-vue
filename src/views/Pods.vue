@@ -55,7 +55,7 @@
     },
     // Fetches posts when the component is created.
     created() {
-      var url = "http://localhost:8001/api/v1/pods"
+      var url = "/api/v1/pods"
       var self = this
       this.refresh(url)
       setInterval(function() {

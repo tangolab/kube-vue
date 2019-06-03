@@ -1,0 +1,81 @@
+{
+    "kind": "ServiceList",
+    "apiVersion": "v1",
+    "metadata": {
+      "selfLink": "/api/v1/namespaces/default/services",
+      "resourceVersion": "83031"
+    },
+    "items": [
+      {
+        "metadata": {
+          "name": "kubernetes",
+          "namespace": "default",
+          "selfLink": "/api/v1/namespaces/default/services/kubernetes",
+          "uid": "c208db6c-85ae-11e9-b2c2-00155da00138",
+          "resourceVersion": "78988",
+          "creationTimestamp": "2019-06-03T03:22:03Z",
+          "labels": {
+            "component": "apiserver",
+            "provider": "kubernetes"
+          }
+        },
+        "spec": {
+          "ports": [
+            {
+              "name": "https",
+              "protocol": "TCP",
+              "port": 443,
+              "targetPort": 6443
+            }
+          ],
+          "clusterIP": "10.96.0.1",
+          "type": "ClusterIP",
+          "sessionAffinity": "None"
+        },
+        "status": {
+          "loadBalancer": {
+            
+          }
+        }
+      },
+      {
+        "metadata": {
+          "name": "web",
+          "namespace": "default",
+          "selfLink": "/api/v1/namespaces/default/services/web",
+          "uid": "87b46faf-85b6-11e9-b2c2-00155da00138",
+          "resourceVersion": "82886",
+          "creationTimestamp": "2019-06-03T04:17:41Z",
+          "annotations": {
+            "kubectl.kubernetes.io/last-applied-configuration": "{\"apiVersion\":\"v1\",\"kind\":\"Service\",\"metadata\":{\"annotations\":{},\"name\":\"web\",\"namespace\":\"default\"},\"spec\":{\"ports\":[{\"nodePort\":30800,\"port\":80,\"targetPort\":80}],\"selector\":{\"component\":\"web\"},\"type\":\"NodePort\"}}\n"
+          }
+        },
+        "spec": {
+          "ports": [
+            {
+              "protocol": "TCP",
+              "port": 80,
+              "targetPort": 80,
+              "nodePort": 30800
+            }
+          ],
+          "selector": {
+            "component": "web"
+          },
+          "clusterIP": "10.100.80.45",
+          "type": "NodePort",
+          "sessionAffinity": "None",
+          "externalTrafficPolicy": "Cluster"
+        },
+        "status": {
+          "loadBalancer": {
+            "ingress": [
+              {
+                "hostname": "localhost"
+              }
+            ]
+          }
+        }
+      }
+    ]
+  }
