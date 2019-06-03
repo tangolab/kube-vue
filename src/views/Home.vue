@@ -10,16 +10,19 @@
                     /*dep*/     <rect :x="d.left + ((d.left + d.w) * ref)" :y="d.top" :width="d.w" :height="d.h" :class="d.style"></rect>
                                 <!--<text :x="d.left + ((d.left + d.w) * ref) + d.w/2" :y="200" text-anchor="middle" fill="#000" class="podlabel">{{dep.name}}</text>-->
 
-                    /*NodePort*/<rect v-if="dep.pods.service.nodePort!==''" :x="d.left + ((d.left + d.w) * ref) + d.w/2 - s.w/8" :y="d.top+s.top-30" :width="s.w/4" :height="s.h/2.0" :class="np.style"></rect>
-                                <text :x="d.left + ((d.left + d.w) * ref) + d.w/2" :y="d.top+s.top-15" 
-                                text-anchor="middle" fill="#000" class="servicelabel">{{dep.pods.service.nodePort}}</text>
+                    /*NodePort*/<rect v-if="dep.pods.service.nodePort!==''" :x="d.left + ((d.left + d.w) * ref) + d.w/2 - s.w/6" :y="d.top+s.top-30" 
+                                  :width="s.w/3" :height="s.h/2.0" :class="np.style"></rect>
+                                <text v-if="dep.pods.service.nodePort!==''" :x="d.left + ((d.left + d.w) * ref) + d.w/2" :y="d.top+s.top-15+10" 
+                                  text-anchor="middle" fill="#000" class="nplabel">(Node Port)</text>
+                                <text v-if="dep.pods.service.nodePort!==''" :x="d.left + ((d.left + d.w) * ref) + d.w/2" :y="d.top+s.top-17" 
+                                  text-anchor="middle" fill="#000" class="servicelabel">{{dep.pods.service.nodePort}}</text>
                     /*service*/ <rect v-if="dep.pods.service.name!=='None'" :x="d.left + ((d.left + d.w) * ref) + d.w/2 - s.w/2" :y="d.top+s.top" :width="s.w" :height="s.h" :class="s.style"></rect>
                                 <text v-if="dep.pods.service.name!=='None'" :x="d.left + ((d.left + d.w) * ref) + d.w/2" :y="d.top+s.top+ s.th" 
-                                text-anchor="middle" fill="#000" class="servicelabel">Service - {{dep.pods.service.name}}</text>
+                                  text-anchor="middle" fill="#000" class="servicelabel">Service - {{dep.pods.service.name}}</text>
                                 <text v-if="dep.pods.service.name!=='None'" :x="d.left + ((d.left + d.w) * ref) + d.w/2" :y="d.top+s.top+ s.th*2" 
-                                text-anchor="middle" fill="#000" class="servicelabel">ClusterIP - {{dep.pods.service.clusterIP}}</text>
+                                  text-anchor="middle" fill="#000" class="servicelabel">ClusterIP - {{dep.pods.service.clusterIP}}</text>
                                 <text v-if="dep.pods.service.name!=='None'" :x="d.left + ((d.left + d.w) * ref) + d.w/2" :y="d.top+s.top+ s.th*3" 
-                                text-anchor="middle" fill="#000" class="servicelabel">Service Port - {{dep.pods.service.port}}:{{dep.pods.service.targetPort}}</text>
+                                  text-anchor="middle" fill="#000" class="servicelabel">Service Port - {{dep.pods.service.port}}:{{dep.pods.service.targetPort}}</text>
                     <line v-if="dep.pods.service.name!=='None'" class="service-1" :x1="d.left + ((d.left + d.w) * ref) + d.w/2" :y1="d.top+s.top+s.h" :x2="d.left + ((d.left + d.w) * ref) + d.w/2" :y2="d.top+s.top+p.top+s.h"></line>
                         
                     <g v-for="(pod, index) in dep.pods.items" :key="index">
@@ -324,6 +327,10 @@ line.deployment-1 {
 
 .servicelabel {
   font: 12px arial;
+}
+
+.nplabel {
+  font: 10px arial;
 }
 
 img.podlogo {
