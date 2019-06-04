@@ -8,10 +8,10 @@
   "items": [
     {
       "metadata": {
-        "name": "restapi-deployment-7497975f68-pzz7m",
-        "generateName": "restapi-deployment-7497975f68-",
+        "name": "restapi-7497975f68-pzz7m",
+        "generateName": "restapi-7497975f68-",
         "namespace": "default",
-        "selfLink": "/api/v1/namespaces/default/pods/restapi-deployment-7497975f68-pzz7m",
+        "selfLink": "/api/v1/namespaces/default/pods/restapi-7497975f68-pzz7m",
         "uid": "23a7dce1-8599-11e9-b2c2-00155da00138",
         "resourceVersion": "69983",
         "creationTimestamp": "2019-06-03T00:47:18Z",
@@ -23,7 +23,7 @@
           {
             "apiVersion": "extensions/v1beta1",
             "kind": "ReplicaSet",
-            "name": "restapi-deployment-7497975f68",
+            "name": "restapi-7497975f68",
             "uid": "239634ef-8599-11e9-b2c2-00155da00138",
             "controller": true,
             "blockOwnerDeletion": true
@@ -138,10 +138,10 @@
     },
     {
       "metadata": {
-        "name": "restapi-deployment-7497975f68-pzz7m",
-        "generateName": "restapi-deployment-7497975f68-",
+        "name": "restapi-7497975f68-pzz7m",
+        "generateName": "restapi-7497975f68-",
         "namespace": "default",
-        "selfLink": "/api/v1/namespaces/default/pods/restapi-deployment-7497975f68-pzz7m",
+        "selfLink": "/api/v1/namespaces/default/pods/restapi-7497975f68-pzz7m",
         "uid": "23a7dce1-8599-11e9-b2c2-00155da00138",
         "resourceVersion": "69983",
         "creationTimestamp": "2019-06-03T00:47:18Z",
@@ -153,7 +153,7 @@
           {
             "apiVersion": "extensions/v1beta1",
             "kind": "ReplicaSet",
-            "name": "restapi-deployment-7497975f68",
+            "name": "restapi-7497975f68",
             "uid": "239634ef-8599-11e9-b2c2-00155da00138",
             "controller": true,
             "blockOwnerDeletion": true
@@ -221,7 +221,7 @@
         ]
       },
       "status": {
-        "phase": "Running",
+        "phase": "Pending",
         "conditions": [
           {
             "type": "Initialized",

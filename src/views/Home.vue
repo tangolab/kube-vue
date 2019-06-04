@@ -10,24 +10,32 @@
                     /*dep*/     <rect :x="d.left + ((d.left + d.w) * ref)" :y="d.top" :width="d.w" :height="d.h" :class="d.style"></rect>
                                 <!--<text :x="d.left + ((d.left + d.w) * ref) + d.w/2" :y="200" text-anchor="middle" fill="#000" class="podlabel">{{dep.name}}</text>-->
 
-                    /*NodePort*/<rect v-if="dep.pods.service.nodePort!==''" :x="d.left + ((d.left + d.w) * ref) + d.w/2 - s.w/6" :y="d.top+s.top-30" 
+                    /*NodePort*/<rect v-if="dep.pods.service.nodePort!==''" :x="d.left + ((d.left + d.w) * ref) + d.w/2 - s.w/6" :y="d.top+s.top-28" 
                                   :width="s.w/3" :height="s.h/2.0" :class="np.style"></rect>
                                 <text v-if="dep.pods.service.nodePort!==''" :x="d.left + ((d.left + d.w) * ref) + d.w/2" :y="d.top+s.top-15+10" 
                                   text-anchor="middle" fill="#000" class="nplabel">(Node Port)</text>
                                 <text v-if="dep.pods.service.nodePort!==''" :x="d.left + ((d.left + d.w) * ref) + d.w/2" :y="d.top+s.top-17" 
                                   text-anchor="middle" fill="#000" class="servicelabel">{{dep.pods.service.nodePort}}</text>
-                    /*service*/ <rect v-if="dep.pods.service.name!=='None'" :x="d.left + ((d.left + d.w) * ref) + d.w/2 - s.w/2" :y="d.top+s.top" :width="s.w" :height="s.h" :class="s.style"></rect>
-                                <text v-if="dep.pods.service.name!=='None'" :x="d.left + ((d.left + d.w) * ref) + d.w/2" :y="d.top+s.top+ s.th" 
-                                  text-anchor="middle" fill="#000" class="servicelabel">Service - {{dep.pods.service.name}}</text>
+                    /*service*/ <rect v-if="dep.pods.service.name!=='None'" :x="d.left + ((d.left + d.w) * ref) + d.w/2 - s.w/2" :y="d.top+s.top" 
+                                  :width="s.w" :height="s.h" :class="s.style"></rect>
+                                <text v-if="dep.pods.service.name!=='None'" :x="d.left + ((d.left + d.w) * ref) + d.w/2" :y="d.top+s.top+ s.th-4" 
+                                  text-anchor="middle" fill="#000" class="nplabel">IP - {{dep.pods.service.clusterIP}}:{{dep.pods.service.port}}</text>
                                 <text v-if="dep.pods.service.name!=='None'" :x="d.left + ((d.left + d.w) * ref) + d.w/2" :y="d.top+s.top+ s.th*2" 
-                                  text-anchor="middle" fill="#000" class="servicelabel">ClusterIP - {{dep.pods.service.clusterIP}}</text>
-                                <text v-if="dep.pods.service.name!=='None'" :x="d.left + ((d.left + d.w) * ref) + d.w/2" :y="d.top+s.top+ s.th*3" 
-                                  text-anchor="middle" fill="#000" class="servicelabel">Service Port - {{dep.pods.service.port}}:{{dep.pods.service.targetPort}}</text>
-                    <line v-if="dep.pods.service.name!=='None'" class="service-1" :x1="d.left + ((d.left + d.w) * ref) + d.w/2" :y1="d.top+s.top+s.h" :x2="d.left + ((d.left + d.w) * ref) + d.w/2" :y2="d.top+s.top+p.top+s.h"></line>
+                                  text-anchor="middle" fill="#000" class="servicelabel">Service - {{dep.pods.service.name}}</text>
+                                <line v-if="dep.pods.service.name!=='None'" class="service-1" 
+                                  :x1="d.left + ((d.left + d.w) * ref) + d.w/2" :y1="d.top+s.top+s.h" 
+                                  :x2="d.left + ((d.left + d.w) * ref) + d.w/2" :y2="d.top+s.top+p.top+s.h"></line>
                         
                     <g v-for="(pod, index) in dep.pods.items" :key="index">
-                    /*pod*/     <rect :x="(index * p.offset) + d.left + ((d.left + d.w) * ref) + d.w/2 - p.w/2" :y="(index * p.offset) + d.top+s.top+p.top+s.h" :width="p.w" :height="p.h" :class="p.style"></rect>
-                                <text :x="(index * p.offset) + d.left + ((d.left + d.w) * ref) + d.w/2" :y="(index * p.offset) + d.top+s.top+p.top+s.h+ 25" text-anchor="middle" fill="#000" class="podlabel">{{pod.name}}</text>
+                    /*pod*/     <rect :x="(index * p.offset) + d.left + ((d.left + d.w) * ref) + d.w/2 - p.w/2" 
+                                  :y="(index * p.offset) + d.top+s.top+p.top+s.h" :width="p.w" :height="p.h" 
+                                  :class="pod.status"></rect>
+                                <text :x="(index * p.offset) + d.left + ((d.left + d.w) * ref) + d.w/2" 
+                                  :y="(index * p.offset) + d.top+s.top+p.top+s.h+ 11" text-anchor="middle" fill="#000" 
+                                  class="nplabel">IP - {{(pod.status==='Running'?pod.podIP:pod.status)}}:{{dep.pods.service.targetPort}}</text>
+                                <text :x="(index * p.offset) + d.left + ((d.left + d.w) * ref) + d.w/2" 
+                                  :y="(index * p.offset) + d.top+s.top+p.top+s.h+ 28" text-anchor="middle" fill="#000" 
+                                  class="podlabel">{{pod.name}}</text>
                     </g>
 
                     
@@ -57,16 +65,16 @@ export default {
           style: "plain",
           left: 20,
           top: 20,
-          w: 280,
+          w: 290,
           h: 200
       },
       p: {
           //pod ui properties
           style: "Running",
           top: 50,
-          w: 220,
+          w: 180,
           h: 50,
-          offset:8,
+          offset:14,
       },
       np:{
         style:"nodeport",
@@ -74,9 +82,9 @@ export default {
       s: {
           //service ui properties
           style: "service",
-          top: 15,
+          top: 12,
           w: 180,
-          h: 60,
+          h: 55,
           th: 15,
       },
       l: {
@@ -121,7 +129,7 @@ export default {
         var podsInDeployment = []
         var ldepl = null;
         podsFound.forEach(function(p){
-          podsInDeployment.push({"name":p.metadata.name})
+          podsInDeployment.push({"name":p.metadata.name,"status":p.status.phase,"podIP": ("podIP" in p.status? p.status.podIP:"")})
         });
         var port="";
         var nodePort="";
