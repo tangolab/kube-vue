@@ -15,15 +15,8 @@ npm run serve
 npm run build
 ```
 
-### Run your tests
+### Test it in a K8s environment
 ```
-npm run test
+kubectl proxy --www=dist --www-prefix=/static/
 ```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+open http://localhost:8001/static
