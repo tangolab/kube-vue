@@ -60,7 +60,7 @@
       this.refresh(url)
       setInterval(function() {
         self.refresh(url)
-      }, 5000);
+      }, 50000);
     }
   }
 </script>

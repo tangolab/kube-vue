@@ -198,7 +198,7 @@ export default {
           .then(response => {
             // JSON responses are automatically parsed.
             this.deployments = response.data;
-            this.refreshPods("http://localhost:8001/api/v1/namespaces/default/pods");
+            this.refreshPods("/api/v1/namespaces/mvdls3syst1/pods");
           })
           .catch(e => {
             this.errors.push(e);
@@ -215,7 +215,7 @@ export default {
         .then(response => {
           // JSON responses are automatically parsed.
           this.pods = response.data;
-          this.refreshServices("http://localhost:8001/api/v1/namespaces/default/services");
+          this.refreshServices("/api/v1/namespaces/mvdls3syst1/services");
         })
         .catch(e => {
           this.errors.push(e);
@@ -239,13 +239,13 @@ export default {
     }
   },
   mounted() {
-    var deploymentsUrl = "http://localhost:8001/apis/extensions/v1beta1/namespaces/default/deployments";
+    var deploymentsUrl = "/apis/extensions/v1beta1/namespaces/mvdls3syst1/deployments";
     var self = this;
     this.refreshDeployments(deploymentsUrl);
     if (process.env.NODE_ENV === "production"){
       setInterval(function() {
         self.refreshDeployments(deploymentsUrl);
-      }, 5000);
+      }, 50000);
     }
   }
 };

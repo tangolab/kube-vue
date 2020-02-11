@@ -60,7 +60,7 @@
       this.refresh(url)
       setInterval(function() {
         self.refresh(url)
-      }, 5000);
+      }, 50000);
     }
   }
 </script>
@@ -121,7 +121,7 @@
   div.header {
     padding: 15px 0px 5px 0px;
     font-weight: bold;
-    font-size: 15px;
+    font-size: 10px;
   }
   
   .card {
