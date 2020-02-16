@@ -37,7 +37,7 @@ import podsJson from "../assets/pods.json";
 export default {
   data() {
     return {
-      filtext: "ecs",
+      filtext: "",
       proxyClass: "proxy",
       masterClass: "master",
       headerClass: "header",
