@@ -17,6 +17,6 @@ npm run build
 
 ### Test it in a K8s environment
 ```
-kubectl proxy --www=dist --www-prefix=/static/
+kubectl proxy --www=dist 
 ```
 open http://localhost:8001/static
