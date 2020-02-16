@@ -1,6 +1,9 @@
 <template>
   <div>
-    <h1>Pod Distribution <input type="text" v-model="filtext"/></h1>
+    <h1>
+      Pod Distribution
+      <input type="text" v-model="filtext" />
+    </h1>
     <div class="ns">
       <div v-for="(namesp, id) in namespaces.items" :key="`${id}`">
         <div v-if="1">
@@ -20,9 +23,18 @@
         </div>
         <div class="pod" v-for="pod in podsInNode(node.metadata.name)" :key="pod.metadata.uid">
           <div
-            v-bind:class="{box : pod.status.phase == 'Running', yellow : pod.status.phase == 'Pending', gray: pod.status.phase == 'Succeeded'}"
+            v-bind:class="{blue : pod.status.phase == 'Running', yellow : pod.status.phase == 'Pending', gray: pod.status.phase == 'Succeeded', red: pod.status.phase == 'Terminating'}"
             v-if="myPod(pod)"
-          >{{plainPodName(pod)}}</div>
+          >
+            {{plainPodName(pod)}}
+            <div class="pod-details">
+              <pre>Namespace: {{pod.metadata.namespace}}
+Name: {{pod.metadata.name}}
+Status: {{pod.status.phase}}
+Created: {{pod.metadata.creationTimestamp}}
+</pre>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -83,16 +95,23 @@ export default {
         var ns = this.getNamespace();
         if (ns) {
           return this.pods.items.filter(
-            m => m.spec.nodeName === node && m.metadata.namespace == ns && m.metadata.name.includes(this.filtext)
+            m =>
+              m.spec.nodeName === node &&
+              m.metadata.namespace == ns &&
+              m.metadata.name.includes(this.filtext)
           );
         } else {
-          return this.pods.items.filter(m => m.spec.nodeName === node && m.metadata.name.includes(this.filtext));
+          return this.pods.items.filter(
+            m =>
+              m.spec.nodeName === node && m.metadata.name.includes(this.filtext)
+          );
         }
       }
     },
     myPod(pod) {
       // eslint-disable-next-line
-      if (pod){}
+      if (pod) {
+      }
       return true;
       /* return !(
         pod.metadata.name.match(/es-/g) ||
@@ -208,9 +227,6 @@ export default {
 .header .left {
   overflow: hidden;
 }
-.pod {
-  display: block;
-}
 div.ns > div {
   padding: 0px 0px 10px 0px;
 }
@@ -232,11 +248,11 @@ div.ns > div {
   float: left;
   width: 90%;
 }
-.yellow {
+
+.pod div{
+  width: 66px;
   margin: 1px;
   float: left;
-  width: 70px;
-  background-color: #ca7711;
   padding: 0px 1px 0px 5px;
   font-size: 10px;
   border-radius: 0px;
@@ -244,32 +260,42 @@ div.ns > div {
   text-overflow: ellipsis;
   white-space: nowrap;
   overflow: hidden;
+}
+.yellow {
+  background-color: #ca7711;
+}
+.red {
+  background-color: #fc2020;
 }
 .gray {
-  margin: 1px;
-  float: left;
-  width: 70px;
   background-color: #2b2b2a;
-  padding: 0px 1px 0px 5px;
-  font-size: 10px;
-  border-radius: 0px;
-  font-family: arial;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
 }
-.box {
-  margin: 1px;
-  float: left;
-  width: 70px;
+.blue {
   background-color: #0a44a1;
-  padding: 0px 1px 0px 5px;
-  font-size: 10px;
-  border-radius: 0px;
-  font-family: arial;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-  overflow: hidden;
+}
+.pod {
+  display: inline-block;
+  position: relative;
+}
+.pod:hover div .pod-details {
+  z-index: 10;
+  opacity: 1;
+  top: 1px;
+  visibility: visible;
+  transform: translate(0, 20px);
+  transition: all 0.1s cubic-bezier(0.75, -0.02, 0.2, 0.97);
+}
+
+.pod div .pod-details {
+  opacity: 0;
+  visibility: hidden;
+  position: absolute;
+  top: 15px;
+  transform: translate(0, 10px);
+  background-color: #503030;
+  padding: 0.5rem;
+  box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.26);
+  width: auto;
 }
 .env {
   padding: 0px 0px 10px 1px;

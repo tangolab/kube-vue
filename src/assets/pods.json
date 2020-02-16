@@ -91,7 +91,7 @@
         ]
       },
       "status": {
-        "phase": "Running",
+        "phase": "Terminating",
         "conditions": [
           {
             "type": "Initialized",
