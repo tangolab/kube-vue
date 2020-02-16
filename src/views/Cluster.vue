@@ -1,6 +1,6 @@
 <template>
   <div>
-    <h1>Pod Distribution</h1>
+    <h1>Pod Distribution <input type="text" v-model="filtext"/></h1>
     <div class="ns">
       <div v-for="(namesp, id) in namespaces.items" :key="`${id}`">
         <div v-if="1">
@@ -20,7 +20,7 @@
         </div>
         <div class="pod" v-for="pod in podsInNode(node.metadata.name)" :key="pod.metadata.uid">
           <div
-            v-bind:class="{box : pod.status.phase == 'Running', yellow : pod.status.phase != 'Running'}"
+            v-bind:class="{box : pod.status.phase == 'Running', yellow : pod.status.phase == 'Pending', gray: pod.status.phase == 'Succeeded'}"
             v-if="myPod(pod)"
           >{{plainPodName(pod)}}</div>
         </div>
@@ -37,6 +37,7 @@ import podsJson from "../assets/pods.json";
 export default {
   data() {
     return {
+      filtext: "ecs",
       proxyClass: "proxy",
       masterClass: "master",
       headerClass: "header",
@@ -82,14 +83,16 @@ export default {
         var ns = this.getNamespace();
         if (ns) {
           return this.pods.items.filter(
-            m => m.spec.nodeName === node && m.metadata.namespace == ns
+            m => m.spec.nodeName === node && m.metadata.namespace == ns && m.metadata.name.includes(this.filtext)
           );
         } else {
-          return this.pods.items.filter(m => m.spec.nodeName === node);
+          return this.pods.items.filter(m => m.spec.nodeName === node && m.metadata.name.includes(this.filtext));
         }
       }
     },
     myPod(pod) {
+      // eslint-disable-next-line
+      if (pod){}
       return true;
       /* return !(
         pod.metadata.name.match(/es-/g) ||
@@ -165,13 +168,13 @@ export default {
     this.refreshNamespaces("http://localhost:8001/api/v1/namespaces");
     setInterval(function() {
       self.refreshNodes(nodesUrl);
-    }, 50000);
+    }, 5000);
 
     var podsUrl = "/api/v1/pods";
     this.refreshPods(podsUrl);
     setInterval(function() {
       self.refreshPods(podsUrl);
-    }, 50000);
+    }, 5000);
   }
 };
 </script>
@@ -233,7 +236,20 @@ div.ns > div {
   margin: 1px;
   float: left;
   width: 70px;
-  background-color: #d09026;
+  background-color: #ca7711;
+  padding: 0px 1px 0px 5px;
+  font-size: 10px;
+  border-radius: 0px;
+  font-family: arial;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.gray {
+  margin: 1px;
+  float: left;
+  width: 70px;
+  background-color: #2b2b2a;
   padding: 0px 1px 0px 5px;
   font-size: 10px;
   border-radius: 0px;
