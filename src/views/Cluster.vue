@@ -25,6 +25,7 @@
           <div
             v-bind:class="{blue : pod.status.phase == 'Running', yellow : pod.status.phase == 'Pending', gray: pod.status.phase == 'Succeeded', red: pod.status.phase == 'Terminating'}"
             v-if="myPod(pod)"
+            v-bind:style="[pod.metadata.namespace == getNamespace()? {'border': '1px red solid'}:{'border': '0px'}]"
           >
             {{plainPodName(pod)}}
             <div class="pod-details">
@@ -49,6 +50,7 @@ import podsJson from "../assets/pods.json";
 export default {
   data() {
     return {
+      selnamespace: "",
       filtext: "",
       proxyClass: "proxy",
       masterClass: "master",
@@ -97,7 +99,6 @@ export default {
           return this.pods.items.filter(
             m =>
               m.spec.nodeName === node &&
-              m.metadata.namespace == ns &&
               m.metadata.name.includes(this.filtext)
           );
         } else {
@@ -160,6 +161,7 @@ export default {
       }
     },
     refreshPods: function(url) {
+
       if (process.env.NODE_ENV === "development") {
         this.pods = podsJson;
       } else {
@@ -250,10 +252,8 @@ div.ns > div {
 }
 
 .pod div{
-  width: 66px;
+  width: 72px;
   margin: 1px;
-  float: left;
-  padding: 0px 1px 0px 5px;
   font-size: 10px;
   border-radius: 0px;
   font-family: arial;
